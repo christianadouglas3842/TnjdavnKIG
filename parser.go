@@ -22,7 +22,6 @@ func ParseProxy(mapping map[string]any) (C.Proxy, error) {
 	switch proxyType {
 	case "ss":
 		ssOption := &outbound.ShadowSocksOption{}
-		err = decoder.Decode(mapping, ssOption)
 		if err != nil {
 			break
 		}
@@ -50,7 +49,6 @@ func ParseProxy(mapping map[string]any) (C.Proxy, error) {
 		proxy = outbound.NewHttp(*httpOption)
 	case "vmess":
 		vmessOption := &outbound.VmessOption{
-			HTTPOpts: outbound.HTTPOptions{
 				Method: "GET",
 				Path:   []string{"/"},
 			},
@@ -59,7 +57,6 @@ func ParseProxy(mapping map[string]any) (C.Proxy, error) {
 		if err != nil {
 			break
 		}
-		proxy, err = outbound.NewVmess(*vmessOption)
 	case "snell":
 		snellOption := &outbound.SnellOption{}
 		err = decoder.Decode(mapping, snellOption)
